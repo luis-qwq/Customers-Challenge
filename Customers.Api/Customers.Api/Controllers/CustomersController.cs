@@ -25,6 +25,16 @@ public class CustomersController : BaseController
         new GetCustomersQuery()));
   }
 
+  [HttpGet("{id}")]
+  public async Task<IActionResult> GetCustomerById(int id)
+  {
+    if (!ModelState.IsValid) { return BadRequest(); }
+
+    return Ok(
+      await messages.DispatchAsync(
+        new GetCustomerByIdQuery(id)));
+  }
+
   [HttpPost]
   public async Task<IActionResult> CreateCustomer([FromBody] CustomerRequest request)
   {
